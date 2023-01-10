@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Entity
@@ -18,7 +19,8 @@ public class Comanda {
 
     @NotBlank
     @ManyToOne
-    private int id_client;
+    @JoinColumn(name = "id_client", referencedColumnName = "id")
+    private Client client;
 
     @NotBlank
     private LocalDateTime data;
@@ -29,5 +31,14 @@ public class Comanda {
     public enum Status{
         IN_PROGRESS, IN_DELIVERY, DELIVERED, CANCELED
     }
+
+    @ManyToMany
+    @JoinTable(name = "comanda_preparat",
+                joinColumns = {
+                    @JoinColumn(name = "id_comanda", referencedColumnName = "id")},
+                inverseJoinColumns = {
+                    @JoinColumn(name = "id_preparat", referencedColumnName = "id")}
+                )
+    List<Preparat> preparate;
 
 }

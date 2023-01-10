@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Entity
 @Table(name="preparat")
@@ -21,5 +23,8 @@ public class Preparat {
 
     @NotBlank
     private int pret;
+
+    @ManyToMany
+    List<Comanda> comenzi;
 
 }
